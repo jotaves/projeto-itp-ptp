@@ -71,31 +71,24 @@ void comandos(RGB px[alt][lar]){
 			printf("Comando inexistente. Tente novamente: ");
 			scanf("%s", comando);
 		}
-
 		if (strcmp (comando, "thr") == 0){
 			thr(px);
 		}
-		
 		if (strcmp (comando, "rot") == 0){
 			rot_aux(px);
 		}
-		
 		if (strcmp (comando, "sha") == 0){
 			sha(px);
 		}
-		
 		if (strcmp (comando, "blu") == 0){
 			blu(px);
 		}
-		
 		if (strcmp (comando, "bor") == 0){
 			bor(px);
 		}
-		
 		if (strcmp (comando, "amp") == 0){
 			amp(px);
 		}
-		
 		if (strcmp (comando, "outra") == 0){
 			main();
 		}
