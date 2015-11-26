@@ -1,4 +1,5 @@
 int main();
+void remover_novalinha();
 void thr();
 void sha();
 void blu();
@@ -17,7 +18,8 @@ void entrada(){
     printf("Insira o nome da imagem a ser modificada (sem a extensao): ");
     
     setbuf(stdin, 0);
-    scanf("%s", nome_da_foto);
+    fgets(nome_da_foto, sizeof(nome_da_foto), stdin);
+    remover_novalinha(nome_da_foto);
     
     strcpy (nome_da_foto_sppm, nome_da_foto);
     strcpy (nome_da_foto_final, nome_da_foto);
@@ -28,7 +30,8 @@ void entrada(){
     while (foto==NULL){
         printf("Arquivo nao encontrado. Tente novamente: ");
 		setbuf(stdin, 0);
-		scanf("%s", nome_da_foto);
+		fgets(nome_da_foto, sizeof(nome_da_foto), stdin);
+		remover_novalinha(nome_da_foto);
 		
 		strcpy (nome_da_foto_sppm, nome_da_foto);
 		strcpy (nome_da_foto_final, nome_da_foto);
@@ -41,6 +44,12 @@ void entrada(){
 	lar_s=lar;
 }
 
+void remover_novalinha(char *linha){
+    int nova_linha = strlen(linha) -1;
+    if (linha[nova_linha] == '\n') // Caso haja \n no final da string,
+        linha[nova_linha] = '\0'; // é colocado \0.
+}
+
 void processamento(RGB px[alt][lar]){
     //pegando colunas com informações de RGB de cada px
     int l, c;
@@ -51,6 +60,25 @@ void processamento(RGB px[alt][lar]){
             fscanf(foto, "%i", &px[l][c].b);
         }
     }
+}
+
+void ran(RGB px[alt][lar]){
+	/*escolhe um efeito aleatoriamente*/
+	int x;
+	srand( (unsigned)time(NULL) );
+	x = rand() % 10;
+	if(x == 0 || x == 1 || x == 8){
+		thr(px);
+	}
+	if(x == 2 || x == 3 || x == 9){
+		sha(px);
+	}
+	if(x == 4 || x == 5){
+		blu(px);
+	}
+	if(x == 6 || x == 7){
+		bor(px);
+	}
 }
 
 void comandos(RGB px[alt][lar]){
@@ -107,7 +135,7 @@ void comandos(RGB px[alt][lar]){
 	}
 	printf("Até logo!");
 }
-//Falta: colocar pra avisar que a foto foi gerada
+
 void saida(RGB px[alt][lar]){	
 	int l, c;
     FILE *saida;
