@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
     char nome_da_foto[100], tipo[2], comando[20], nome_da_foto_sppm[100], nome_da_foto_final[100];
-    int alt, lar, qua, rot;
+    int alt, lar, qua, rot, alt_s, lar_s;
 	FILE *foto;
 	
     typedef struct {
