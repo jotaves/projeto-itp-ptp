@@ -265,7 +265,7 @@ void blu(RGB px[alt][lar]){
 
 void sha(RGB px[alt][lar]){
     /**
-    *   \brief Função para filtro Sharpening
+    *   \brief Função para filtro Sharpening.
     *   Essa função aumenta a nitidez da imagem.
     *   Nesse filtro, em uma matriz 3x3, são multiplicados por -1 as posições 0x1, 1x0, 2x1 e 1x2 e multiplicado por 5 a posição 1x1.
     *   É feita então a soma dessas multiplicações e o resultado armazenado no pixel do meio da matriz (1x1).
@@ -354,7 +354,7 @@ void sha(RGB px[alt][lar]){
 
 void bor(RGB px[alt][lar]){
     /**
-    *   \brief Função para detecção de borda
+    *   \brief Função para detecção de borda.
     *   Essa função determina pontos de uma imagem em que a intensidade luminosa muda repentinamente.
     *   Nesse filtro, em uma matriz 3x3, são multiplicados por 1 as posições 0x1, 1x0, 2x1 e 1x2 e multiplicado por -4 a posição 1x1.
     *   É feita então a soma dessas multiplicações e o resultado armazenado no pixel do meio da matriz (1x1).
@@ -444,7 +444,7 @@ void bor(RGB px[alt][lar]){
 
 void amp(RGB px[alt][lar]){
     /**
-    *   \brief Função para ampliar imagem
+    *   \brief Função para ampliar imagem.
     *   Essa função amplia uma imagem a quantidade de vezes digitada pelo usuário.
     *   Para uma imagem ser ampliada, é necessário multiplicar sua altura e largura pela quantidade de vezes aumentada.
     *   Também é necessário duplicar, triplicar, quadruplicar (dependendo do valor a ser ampliado)... um mesmo pixel na linha.
@@ -477,7 +477,7 @@ void amp(RGB px[alt][lar]){
 
 void red(RGB px[alt][lar]){
     /**
-    *   \brief Função para reduzir tamanho da imagem
+    *   \brief Função para reduzir tamanho da imagem.
     *   Essa função reduz uma imagem a quantidade de vezes digitada pelo usuário (somente para múltiplos dos valores de altura e largura).
     *   Nesse filtro, é feito o processo inverso ao feito para ampliar. É retirada a quantidade de linhas que foi multiplicada.
     *   Também é retirada a quantidade de vezes que um mesmo pixel foi repetido na mesma linha.
