@@ -383,22 +383,3 @@ void red(RGB px[alt][lar]){
 	system("clear");
 	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
 }
-
-void ran(RGB px[alt][lar]){
-	/*escolhe um efeito aleatoriamente*/
-	int x;
-	srand( (unsigned)time(NULL) );
-	x = rand() % 10;
-	if(x == 0 || x == 1 || x == 8){
-		thr(px);
-	}
-	if(x == 2 || x == 3 || x == 9){
-		sha(px);
-	}
-	if(x == 4 || x == 5){
-		blu(px);
-	}
-	if(x == 6 || x == 7){
-		bor(px);
-	}
-}
