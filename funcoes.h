@@ -44,6 +44,10 @@ void entrada(){
 	lar_s=lar;
 }
 
+/* O código abaixo foi retirado do site
+http://stackoverflow.com/questions/2693776/removing-trailing-newline-character-from-fgets-input
+e é utilizado para remover a nova linha que fica no final do comando fgets.
+*/
 void remover_novalinha(char *linha){
     int nova_linha = strlen(linha) -1;
     if (linha[nova_linha] == '\n') // Caso haja \n no final da string,
