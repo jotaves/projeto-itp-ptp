@@ -1,4 +1,5 @@
 void thr(RGB px[alt][lar]){
+	/*binariza a imagem. Faz a media de red, green e blue de cada pixel. Se for maior que 127, o pixel fica branco, e se for menor, fica preto*/
     RGB edit[alt][lar];
 	int media, l, c;
 	for(l=0; l<alt; l++){
@@ -19,6 +20,8 @@ void thr(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_thr.ppm");
 	saida(edit);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
 }
 
 void rot_aux(RGB px[alt][lar]){
@@ -57,6 +60,8 @@ void rot_180(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_rot.ppm");
     saida(px);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);    
 }
 
 void rot_270(RGB px[alt][lar]){
@@ -100,6 +105,8 @@ void rot_270(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_rot.ppm");
     saida(px);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);    
 }
 
 void rot_90(RGB px[alt][lar]){
@@ -128,6 +135,8 @@ void rot_90(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_rot.ppm");
     saida(px);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);    
 }
 
 void blu(RGB px[alt][lar]){
@@ -187,6 +196,8 @@ void blu(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_blu.ppm");
 	saida(edit);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
 }
 
 void sha(RGB px[alt][lar]){
@@ -251,6 +262,8 @@ void sha(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_sha.ppm");
 	saida(edit);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
 }
 
 void bor(RGB px[alt][lar]){
@@ -316,30 +329,76 @@ void bor(RGB px[alt][lar]){
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
 	strcat(nome_da_foto_final, "_bor.ppm");
 	saida(edit);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
 }
 
-void amp(RGB px[alt][lar]){
-	int l, c, x, so, ma;
-	printf("Quantas vezes deseja ampliar a imagem? ");
+void amp(RGB px[alt][lar]){	
+	int x;
+	printf("Insira: ");
+	scanf("%i", &x);
+	int l, c, rl, rc;
+	
+    FILE *saida;
+	strcpy (nome_da_foto_final, nome_da_foto_sppm);
+	strcat(nome_da_foto_final, "_amp.ppm");
+    saida=fopen(nome_da_foto_final, "w");
+    fprintf(saida, "%s\n%i %i\n%i\n", tipo, alt*x, lar*x, qua);
+	
+	for(l = 0; l < alt; l++)
+		for (rl = 0; rl < x; rl++) //repete linhas x vezes
+			for(c = 0; c < lar; c++)
+				for(rc = 0; rc < x; rc++) //repete colunas x vezes
+					fprintf(saida, "%i %i %i\n", px[l][c].r, px[l][c].g, px[l][c].b);
+	fclose(saida);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
+}
+
+void red(RGB px[alt][lar]){	
+	int x;
+	printf("Insira o valor da reducao (multiplo dos valores de altura e largura): ");
 	scanf("%i", &x);
 	
-	lar*=x;
-	alt*=x;
-    
-    RGB edit[alt][lar];
-    
-    for(l=0; l < alt; l+=x){
-        for(c=0; c < lar; c+=x){
-			for(so=0; so < x; so++){
-				for(ma=0; ma < x; ma++){
-					edit[l+so][c+ma].r=px[(l/x)][(c/x)].r;
-					edit[l+so][c+ma].g=px[(l/x)][(c/x)].g;
-					edit[l+so][c+ma].b=px[(l/x)][(c/x)].b;
-				}
-			}
-        }
-    }
+	while (alt%x!=0 && lar%x!=0){
+		printf("O valor inserido nao e multiplo dos valores de altura e largura. Tente novamente: ");
+		scanf("%i", &x);
+	}
+	
+	int l, c;
+	RGB edit[(alt/x)][(lar/x)];
+	
+	for(l = 0; l < alt; l+=x)
+		for(c = 0; c < lar; c+=x){
+			edit[(l/x)][(c/x)].r=px[l][c].r;
+			edit[(l/x)][(c/x)].g=px[l][c].g;
+			edit[(l/x)][(c/x)].b=px[l][c].b;
+		}
+	alt/=x;
+	lar/=x;
+	
 	strcpy (nome_da_foto_final, nome_da_foto_sppm);
-	strcat(nome_da_foto_final, "_amp.ppm");    
-    saida(edit);
+	strcat(nome_da_foto_final, "_red.ppm");
+	saida(edit);
+	system("clear");
+	printf("A imagem %s foi gerada.\n", nome_da_foto_final);	
+}
+
+void ran(RGB px[alt][lar]){
+	/*escolhe um efeito aleatoriamente*/
+	int x;
+	srand( (unsigned)time(NULL) );
+	x = rand() % 10;
+	if(x == 0 || x == 1 || x == 8){
+		thr(px);
+	}
+	if(x == 2 || x == 3 || x == 9){
+		sha(px);
+	}
+	if(x == 4 || x == 5){
+		blu(px);
+	}
+	if(x == 6 || x == 7){
+		bor(px);
+	}
 }
