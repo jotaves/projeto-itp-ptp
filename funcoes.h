@@ -12,19 +12,19 @@ void rot_180();
 void rot_270();
 void ran();
 
+//pega o nome da foto e checa se o arquivo existe. Caso não exista, pede para inserir novamente
 void entrada(){
-    //pega o nome da foto e checa se o arquivo existe. Caso não exista, pede para inserir novamente
     printf("### Bem-vindo(a)! ###\n");
     printf("Insira o nome da imagem a ser modificada (sem a extensao): ");
-    
+
     setbuf(stdin, 0);
     fgets(nome_da_foto, sizeof(nome_da_foto), stdin);
     remover_novalinha(nome_da_foto);
-    
+
     strcpy (nome_da_foto_sppm, nome_da_foto);
     strcpy (nome_da_foto_final, nome_da_foto);
     strcat(nome_da_foto, ".ppm");
-    
+
     foto = fopen(nome_da_foto, "r");
 
     while (foto==NULL){
@@ -32,11 +32,11 @@ void entrada(){
 		setbuf(stdin, 0);
 		fgets(nome_da_foto, sizeof(nome_da_foto), stdin);
 		remover_novalinha(nome_da_foto);
-		
+
 		strcpy (nome_da_foto_sppm, nome_da_foto);
 		strcpy (nome_da_foto_final, nome_da_foto);
 		strcat(nome_da_foto, ".ppm");
-		
+
 		foto = fopen(nome_da_foto, "r");
     }
     fscanf(foto, "%s %i %i %i", tipo, &alt, &lar, &qua);
@@ -54,8 +54,8 @@ void remover_novalinha(char *linha){
         linha[nova_linha] = '\0'; // é colocado \0.
 }
 
+//pegando colunas com informações de RGB de cada px
 void processamento(RGB px[alt][lar]){
-    //pegando colunas com informações de RGB de cada px
     int l, c;
     for (l=0; l<alt; l++){
         for(c=0; c<lar; c++){
@@ -66,8 +66,8 @@ void processamento(RGB px[alt][lar]){
     }
 }
 
+/*escolhe um efeito aleatoriamente*/
 void ran(RGB px[alt][lar]){
-	/*escolhe um efeito aleatoriamente*/
 	int x;
 	srand( (unsigned)time(NULL) );
 	x = rand() % 10;
@@ -93,16 +93,16 @@ void comandos(RGB px[alt][lar]){
 		printf("||         'rot' para rotacionar          ||\n");
 		printf("||         'sha' para sharpening          ||\n");
 		printf("||          'blu' para blurring           ||\n");
-		printf("||           'amp' para ampliar           ||\n");	
-		printf("||           'red' para reduzir           ||\n");			
+		printf("||           'amp' para ampliar           ||\n");
+		printf("||           'red' para reduzir           ||\n");
 		printf("||       'bor' para board detection       ||\n");
 		printf("||       'ran' para efeito aleatorio      ||\n");
-		printf("||   'outra' para escolher outra imagem   ||\n");		
-		printf("||          'fim' para finalizar          ||\n");		
+		printf("||   'outra' para escolher outra imagem   ||\n");
+		printf("||          'fim' para finalizar          ||\n");
 		printf("--------------------------------------------\n");
-		printf("Digite o comando do filtro: ");
+		printf("Digite o comando escolhido: ");
 		scanf("%s", comando);
-		
+
 		// Compara se 'comando' é igual ou diferente de 'edit'.
 		// Se for igual, vai para o efeito edit, se não for, pede novamente o comando.
 		while(strcmp (comando, "thr") != 0 && strcmp (comando, "red") != 0 && strcmp (comando, "amp") != 0 && strcmp (comando, "bor") != 0 && strcmp (comando, "fim") != 0 && strcmp (comando, "rot") != 0 && strcmp (comando, "outra") != 0 && strcmp (comando, "blu") != 0 && strcmp (comando, "sha") != 0 && strcmp (comando, "ran") != 0){
@@ -140,15 +140,15 @@ void comandos(RGB px[alt][lar]){
 	printf("Até logo!");
 }
 
-void saida(RGB px[alt][lar]){	
+void saida(RGB px[alt][lar]){
 	int l, c;
     FILE *saida;
     saida=fopen(nome_da_foto_final, "w");
     fprintf(saida, "%s\n%i %i\n%i\n", tipo, alt, lar, qua);
-    
+
     for(l=0; l<alt; l++){
 		for(c=0; c<lar; c++){
-			fprintf(saida, "%i %i %i\n", px[l][c].r, px[l][c].g, px[l][c].b);    
+			fprintf(saida, "%i %i %i\n", px[l][c].r, px[l][c].g, px[l][c].b);
 		}
 	}
 	fclose(saida);
